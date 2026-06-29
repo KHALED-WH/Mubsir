@@ -1,27 +1,35 @@
+document.addEventListener("DOMContentLoaded", function() {
+    
+    const toggleBtn = document.getElementById('toggle-sidebar');
+    const sidebar = document.getElementById('sidebar');
 
+    if (toggleBtn && sidebar) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('open');
+        });
 
-// Show or hide the button when scrolling
-window.onscroll = function() {
-    let backToTopButton = document.getElementById('backToTop');
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      backToTopButton.style.display = "block";
-    } else {
-      backToTopButton.style.display = "none";
+        document.addEventListener('click', function(e) {
+            if (!sidebar.contains(e.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        });
     }
-  };
-  
-  // Smooth scroll to the top when the button is clicked
-  document.getElementById('backToTop').onclick = function(event) {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
-  function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-  }
+    // زر العودة إلى الأعلى
+    const backToTopButton = document.getElementById('backToTop');
+    if (backToTopButton) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
 
-  
-  document.getElementById('toggle-sidebar').addEventListener('click', function() {
-    document.getElementById('sidebar').classList.toggle('open');
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });
-  
